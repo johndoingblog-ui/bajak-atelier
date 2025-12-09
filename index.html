@@ -204,12 +204,18 @@
             <h2>Join the Allocation List</h2>
             <p>Current production is strictly limited to 10 units per month.</p>
             
-            <form name="waitlist" method="POST" data-netlify="true" action="thanks.html">
-                <input type="hidden" name="form-name" value="waitlist" />
-                <div class="form-group"><input type="text" name="name" placeholder="Your Name" required></div>
-                <div class="form-group"><input type="email" name="email" placeholder="Your Email Address" required></div>
-                <button type="submit" class="btn" style="width: 100%;">Request Access</button>
-            </form>
+            <form action="https://formspree.io/f/xldqwqbk" method="POST">
+    
+    <input type="hidden" name="_next" value="https://bajak-atelier.vercel.app/thanks.html">
+    
+    <div class="form-group">
+        <input type="text" name="name" placeholder="Your Name" required>
+    </div>
+    <div class="form-group">
+        <input type="email" name="email" placeholder="Your Email Address" required>
+    </div>
+    <button type="submit" class="btn" style="width: 100%;">Request Access</button>
+</form>
             <p class="note">By joining, you agree to receive an invitation only when a product is available.</p>
         </div>
     </section>
