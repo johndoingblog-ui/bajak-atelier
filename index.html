@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAJAK | The Mycelium Standard</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%232F3E2E'/><text x='50' y='72' font-family='serif' font-weight='bold' font-size='65' text-anchor='middle' fill='%23f4f1ea'>B</text></svg>">
+
+    <style>
+        :root {
+            --bg-color: #f4f1ea; 
+            --text-color: #1a1a1a; 
+            --accent-green: #2F3E2E; 
+            --accent-gold: #C5A059; 
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-sans); line-height: 1.7; }
+        
+        /* TYPOGRAPHY */
+        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: normal; letter-spacing: -0.01em; }
+        h1 { font-size: 4rem; line-height: 1; margin-bottom: 1.5rem; color: var(--bg-color); }
+        h2 { font-size: 3rem; margin-bottom: 1.5rem; color: var(--accent-green); }
+        h3 { font-size: 1.8rem; color: var(--accent-green); margin-bottom: 1rem; }
+        p { font-size: 1.1rem; color: #555; margin-bottom: 1.5rem; font-weight: 300; }
+        
+        /* BUTTONS */
+        .btn { display: inline-block; background-color: var(--accent-green); color: var(--bg-color); padding: 18px 35px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.85rem; border: 1px solid var(--accent-green); transition: all 0.4s ease; font-family: var(--font-sans); font-weight: 500; }
+        .btn:hover { background-color: transparent; color: var(--accent-green); }
+        .btn-reverse { background-color: transparent; color: var(--bg-color); border: 1px solid var(--bg-color); }
+        .btn-reverse:hover { background-color: var(--bg-color); color: var(--accent-green); }
+
+        /* LAYOUT */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; }
+        .section { padding: 100px 0; }
+        .section-dark { background-color: #e8e4dc; }
+        
+        /* HEADER */
+        header { padding: 40px 0; display: flex; justify-content: space-between; align-items: center; position: absolute; width: 100%; z-index: 10; }
+        .logo { font-family: var(--font-serif); font-weight: 600; font-size: 2rem; letter-spacing: 0.1em; color: var(--bg-color); text-transform: uppercase; }
+        .nav-link { color: var(--bg-color); text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* HERO */
+        .hero { height: 95vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(47,62,46,0.85) 0%, rgba(10,10,10,0.95) 100%), url('texture-bg.jpg') center/cover no-repeat;
+            z-index: -1;
+        }
+        .hero-content p.sub-head { text-transform: uppercase; letter-spacing: 0.25em; font-size: 0.9rem; color: var(--accent-gold); margin-bottom: 1rem; }
+        .hero-content p.lead { color: rgba(244,241,234,0.9); font-size: 1.3rem; max-width: 700px; margin: 0 auto 2.5rem auto; }
+
+        /* PRODUCT */
+        .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .image-frame { height: 600px; width: 100%; position: relative; }
+        .image-frame img { width:100%; height:100%; object-fit:cover; border-radius: 2px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        .features-list { list-style: none; margin-top: 2rem; font-family: var(--font-sans); }
+        .features-list li { padding: 15px 0; border-bottom: 1px solid rgba(47,62,46,0.2); display: flex; justify-content: space-between; font-size: 1rem; }
+        .features-list li span:first-child { font-weight: 500; color: var(--accent-green); }
+
+        /* PROCESS GRID */
+        .process-header { text-align: center; margin-bottom: 60px; }
+        .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .process-step { text-align: left; }
+        .process-img { width: 100%; height: 250px; object-fit: cover; margin-bottom: 20px; border-radius: 2px; filter: sepia(20%) contrast(110%); }
+        .step-number { font-family: var(--font-serif); font-size: 2.5rem; color: var(--accent-gold); line-height: 1; display: block; margin-bottom: 10px; }
+        .step-title { font-family: var(--font-serif); font-size: 1.4rem; color: var(--accent-green); margin-bottom: 10px; }
+        .step-desc { font-size: 0.9rem; color: #666; line-height: 1.5; }
+
+        /* PHILOSOPHY & WAITLIST */
+        .philosophy { background-color: var(--accent-green); color: var(--bg-color); text-align: center; }
+        .philosophy h2 { color: var(--bg-color); }
+        .philosophy p { color: rgba(244,241,234,0.8); }
+        .waitlist-section { text-align: center; max-width: 600px; margin: 0 auto; background: #fcfbf9; padding: 60px; border: 1px solid #e6e2d8; border-radius: 4px; }
+        
+        .form-group { margin-bottom: 25px; text-align: left; }
+        input { width: 100%; padding: 15px 0; background: transparent; border: none; border-bottom: 2px solid #e6e2d8; font-family: var(--font-serif); font-size: 1.3rem; color: var(--accent-green); outline: none; transition: border-color 0.3s ease; }
+        input:focus { border-bottom-color: var(--accent-green); }
+        .note { font-size: 0.85rem; color: #888; margin-top: 25px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            h1 { font-size: 3rem; }
+            .hero { height: 85vh; }
+            .split-layout { grid-template-columns: 1fr; gap: 40px; }
+            .process-grid { grid-template-columns: 1fr; gap: 40px; }
+            .image-frame { height: 400px; }
+            header { padding: 20px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" style="position: relative; height: 100%;">
+        <header>
+            <div class="logo">BAJAK</div>
+            <nav><a href="#waitlist" class="nav-link">Waitlist</a></nav>
+        </header>
+    </div>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <p class="sub-head">Cultivated. Not Crafted.</p>
+            <h1>The Future of Sport <br>is Grown.</h1>
+            <p class="lead">Introducing the world's first Mycelium Table Tennis Case. <br>100% Non-toxic. Plastic-free. Uncompromising luxury.</p>
+            <a href="#product" class="btn btn-reverse">Discover The Case</a>
+        </div>
+    </section>
+
+    <section id="product" class="section">
+        <div class="container">
+            <div class="split-layout">
+                <div class="image-frame">
+                    <img src="hero-case.jpg" alt="BAJAK Mycelium Racket Case">
+                </div>
+                <div>
+                    <h2>The Racket Case / 001</h2>
+                    <p>Designed for the purist. This case is not merely sustainable; it is alive with texture. Cultivated from mushroom mycelium into a durable, water-resistant form.</p>
+                    <ul class="features-list">
+                        <li><span>Material</span> <span>Grown Mycelium Leather</span></li>
+                        <li><span>Toxicity</span> <span>0% (Food Grade Purity)</span></li>
+                        <li><span>Plastic</span> <span>None. (Waxed Linen Thread)</span></li>
+                        <li><span>Origin</span> <span>BAJAK Atelier / Home Studio</span></li>
+                    </ul>
+                    <br>
+                    <a href="#waitlist" class="btn">Request Allocation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-dark">
+        <div class="container">
+            <div class="split-layout">
+                <div>
+                    <h2>The Hand Behind<br>The Harvest.</h2>
+                    <p>In a world addicted to the synthetic, I chose the living.</p>
+                    <p>My name is Bajak. I do not run a factory; I tend a garden. The industry told me that high-performance sports gear required plastic, petrochemicals, and mass manufacturing. I refused to accept that the tools we use to master our bodies should be toxic to our world.</p>
+                    <p>I created the BAJAK Atelier in my home because true innovation requires silence. Here, I don't just assemble cases—I grow them. Every imperfection in the grain is a record of the organism's life.</p>
+                    <div style="margin-top: 30px; font-family: var(--font-serif); font-size: 1.5rem; color: var(--accent-green); font-style: italic;">— Bajak, Mester.</div>
+                </div>
+                <div class="image-frame" style="height: 500px;">
+                    <img src="process-4.jpg" alt="The Master's Hands at Work">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="process-header">
+                <h2>From Spore to Stitch</h2>
+                <p>The 45-Day Cycle of Creation.</p>
+            </div>
+            
+            <div class="process-grid">
+                <div class="process-step">
+                    <img src="process-1.jpg" class="process-img" alt="Spores">
+                    <span class="step-number">01</span>
+                    <div class="step-title">Inoculation</div>
+                    <p class="step-desc">Selected agricultural substrate is seeded with mycelium spores in the dark of the studio.</p>
+                </div>
+                <div class="process-step">
+                    <img src="process-2.jpg" class="process-img" alt="Mycelium Web">
+                    <span class="step-number">12</span>
+                    <div class="step-title">The Bind</div>
+                    <p class="step-desc">The mycelium web consumes the substrate, binding it into a solid biological foam.</p>
+                </div>
+                <div class="process-step">
+                    <img src="process-3.jpg" class="process-img" alt="Oiling and Curing">
+                    <span class="step-number">25</span>
+                    <div class="step-title">The Cure</div>
+                    <p class="step-desc">Harvested, compressed, and tanned using natural oils to create a water-resistant skin.</p>
+                </div>
+                <div class="process-step">
+                    <img src="process-4.jpg" class="process-img" alt="Stitching">
+                    <span class="step-number">40</span>
+                    <div class="step-title">The Stitch</div>
+                    <p class="step-desc">I cut the pattern and stitch it with waxed linen thread. No machines. Just tension and time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section philosophy">
+        <div class="container">
+            <h2>Radical Transparency</h2>
+            <p style="max-width: 700px; margin: 0 auto 3rem auto;">We do not use "Add to Cart" buttons because we do not mass produce. Every BAJAK item is grown slowly and stitched by human hands.</p>
+        </div>
+    </section>
+
+    <section id="waitlist" class="section">
+        <div class="waitlist-section">
+            <h2>Join the Allocation List</h2>
+            <p>Current production is strictly limited to 10 units per month.</p>
+            
+            <form name="waitlist" method="POST" data-netlify="true" action="thanks.html">
+                <input type="hidden" name="form-name" value="waitlist" />
+                <div class="form-group"><input type="text" name="name" placeholder="Your Name" required></div>
+                <div class="form-group"><input type="email" name="email" placeholder="Your Email Address" required></div>
+                <button type="submit" class="btn" style="width: 100%;">Request Access</button>
+            </form>
+            <p class="note">By joining, you agree to receive an invitation only when a product is available.</p>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 60px 0; font-size: 0.85rem; color: #999; font-family: var(--font-sans);">
+        &copy; 2024 BAJAK. Cultivated & Handcrafted in the EU.
+    </footer>
+
+</body>
+</html>
