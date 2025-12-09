@@ -32,7 +32,7 @@
         p { font-size: 1.1rem; color: #555; margin-bottom: 1.5rem; font-weight: 300; }
         
         /* BUTTONS */
-        .btn { display: inline-block; background-color: var(--accent-green); color: var(--bg-color); padding: 18px 35px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.85rem; border: 1px solid var(--accent-green); transition: all 0.4s ease; font-family: var(--font-sans); font-weight: 500; }
+        .btn { display: inline-block; background-color: var(--accent-green); color: var(--bg-color); padding: 18px 35px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.85rem; border: 1px solid var(--accent-green); transition: all 0.4s ease; font-family: var(--font-sans); font-weight: 500; cursor: pointer; }
         .btn:hover { background-color: transparent; color: var(--accent-green); }
         .btn-reverse { background-color: transparent; color: var(--bg-color); border: 1px solid var(--bg-color); }
         .btn-reverse:hover { background-color: var(--bg-color); color: var(--accent-green); }
@@ -204,46 +204,12 @@
             <h2>Join the Allocation List</h2>
             <p>Current production is strictly limited to 10 units per month.</p>
             
-            <form id="bajak-form" action="[https://formspree.io/f/xldqwqbk](https://formspree.io/f/xldqwqbk)" method="POST">
-                
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Your Email Address" required>
-                </div>
-                
+            <form id="bajak-form" action="https://formspree.io/f/xldqwqbk" method="POST">
+                <div class="form-group"><input type="text" name="name" placeholder="Your Name" required></div>
+                <div class="form-group"><input type="email" name="email" placeholder="Your Email Address" required></div>
                 <button type="submit" class="btn" style="width: 100%;">Request Access</button>
                 <p id="my-form-status" style="margin-top: 15px; font-size: 0.9rem; color: #888;"></p>
             </form>
-
-            <script>
-                var form = document.getElementById("bajak-form");
-                
-                async function handleSubmit(event) {
-                  event.preventDefault(); // Stop standard Formspree redirect
-                  var status = document.getElementById("my-form-status");
-                  var data = new FormData(event.target);
-                  
-                  fetch(event.target.action, {
-                    method: form.method,
-                    body: data,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                  }).then(response => {
-                    if (response.ok) {
-                      // SUCCESS: Go to your custom luxury page
-                      window.location.href = "thanks.html"; 
-                    } else {
-                      status.innerHTML = "There was a problem. Please try again.";
-                    }
-                  }).catch(error => {
-                    status.innerHTML = "There was a problem. Please try again.";
-                  });
-                }
-                form.addEventListener("submit", handleSubmit);
-            </script>
             <p class="note">By joining, you agree to receive an invitation only when a product is available.</p>
         </div>
     </section>
@@ -252,5 +218,31 @@
         &copy; 2024 BAJAK. Cultivated & Handcrafted in the EU.
     </footer>
 
+    <script>
+        var form = document.getElementById("bajak-form");
+        
+        async function handleSubmit(event) {
+          event.preventDefault();
+          var status = document.getElementById("my-form-status");
+          var data = new FormData(event.target);
+          
+          fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+          }).then(response => {
+            if (response.ok) {
+              window.location.href = "thanks.html";
+            } else {
+              status.innerHTML = "Something went wrong. Please check your details.";
+            }
+          }).catch(error => {
+            status.innerHTML = "Something went wrong. Please check your details.";
+          });
+        }
+        form.addEventListener("submit", handleSubmit);
+    </script>
 </body>
 </html>
